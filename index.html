@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Timbredex — a tiny visual stamp recognition catalogue.">
+  <title>Timbredex — StampDex MVP</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand-lockup"><span class="brand-mark">✳</span><div><p class="eyebrow">VISUAL ARCHIVE / 001</p><h1>Timbredex</h1></div></div>
+    <p class="header-note">A pocket field guide<br>for curious collectors.</p>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow accent">STAMPDEX MVP</p><h2 id="hero-title">Name that<br><em>tiny story.</em></h2><p class="intro">Drop in a stamp photograph and let our pocket-sized visual index find its closest match.</p></div>
+      <div class="hero-meta"><span>01</span><span>UPLOAD<br>→ IDENTIFY</span></div>
+    </section>
+
+    <section class="panel upload-panel" aria-labelledby="upload-title">
+      <div class="section-heading"><span class="section-number">01</span><div><h3 id="upload-title">Bring a specimen</h3><p>Use a clear, front-facing JPG or PNG, up to 10 MB.</p></div></div>
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Choose a stamp image or drop one here">
+        <div class="dropzone-icon">＋</div><p class="dropzone-title">Drop your stamp here</p><p class="hint">or <button id="chooseBtn" class="text-button" type="button">choose a file</button></p>
+        <input id="fileInput" type="file" accept="image/jpeg,image/png" hidden>
+      </div>
+      <div id="uploadError" class="error" role="alert" aria-live="polite"></div>
+      <div id="previewWrap" class="preview-wrap" hidden><img id="previewImg" alt="Selected stamp preview"><button id="removeBtn" class="secondary-button" type="button">Remove image</button></div>
+      <button id="analyzeBtn" class="primary-button" type="button" disabled>Recognize stamp <span>↗</span></button>
+    </section>
+
+    <section id="loading" class="loading" hidden aria-live="polite"><span class="spinner"></span><p>Comparing against the archive<span class="loading-dots">...</span></p></section>
+    <section id="result" class="panel result-panel" hidden aria-live="polite"></section>
+
+    <section class="catalogue-section" aria-labelledby="catalogue-title">
+      <div class="section-heading catalogue-heading"><span class="section-number">02</span><div><h3 id="catalogue-title">The reference shelf</h3><p>Five placeholder specimens to get the index moving.</p></div></div>
+      <div id="catalogue" class="catalogue-grid"><p class="muted">Loading the archive…</p></div>
+    </section>
+  </main>
+
+  <footer class="disclaimer"><span>✳</span><p><strong>Prototype note</strong> Timbredex is a playful visual aid, not a professional authentication or valuation service. Replace the included placeholder images with real photographs before testing.</p></footer>
+</body>
+</html>

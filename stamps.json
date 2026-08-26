@@ -1,0 +1,7 @@
+[
+  {"id":"stamp-001","name":"Tournesol","country":"France","year":2007,"denomination":"0.54 EUR","catalogNumber":"TD-FR-2007-001","description":"Professor Tournesol brings a quiet spark of invention to this cheerful French issue.","image":"stamps/stamp-001.jpeg"},
+  {"id":"stamp-002","name":"Capitaine Haddock","country":"France","year":2007,"denomination":"0.54 EUR","catalogNumber":"TD-FR-2007-002","description":"The Captain sails into the archive with his unmistakable navy-blue character and spirited presence.","image":"stamps/stamp-002.jpeg"},
+  {"id":"stamp-003","name":"Tintin","country":"France","year":2007,"denomination":"0.54 EUR","catalogNumber":"TD-FR-2007-003","description":"Tintin stands ready for the next adventure in this bright, graphic placeholder stamp.","image":"stamps/stamp-003.jpeg"},
+  {"id":"stamp-004","name":"Dupondt","country":"France","year":2007,"denomination":"0.54 EUR","catalogNumber":"TD-FR-2007-004","description":"The twin detectives add a wonderfully symmetrical note to the Timbredex reference shelf.","image":"stamps/stamp-004.jpeg"},
+  {"id":"stamp-005","name":"La Castafiore","country":"France","year":2007,"denomination":"0.54 EUR","catalogNumber":"TD-FR-2007-005","description":"La Castafiore takes center stage in a vivid placeholder designed for easy visual matching.","image":"stamps/stamp-005.jpeg"}
+]
