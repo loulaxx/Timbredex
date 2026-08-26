@@ -1,7 +1,0 @@
-[
-  { "id": 1, "name": "Tournesol", "country": "France", "year": 2007, "denomination": "0.54 EUR", "image": "stamps/stamp-001.jpeg" },
-  { "id": 2, "name": "Capitaine Haddock", "country": "France", "year": 2007, "denomination": "0.54 EUR", "image": "stamps/stamp-002.jpeg" },
-  { "id": 3, "name": "Tintin", "country": "France", "year": 2007, "denomination": "0.54 EUR", "image": "stamps/stamp-003.jpeg" },
-  { "id": 4, "name": "Dupondt", "country": "France", "year": 2007, "denomination": "0.54 EUR", "image": "stamps/stamp-004.jpeg" },
-  { "id": 5, "name": "La Castafiore", "country": "France", "year": 2007, "denomination": "0.54 EUR", "image": "stamps/stamp-005.jpeg" }
-]
