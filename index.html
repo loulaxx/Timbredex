@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StampDex Mini</title>
+<style>
+  body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; }
+  img { max-width: 200px; display: block; margin: 10px 0; border-radius: 8px; }
+  button { padding: 8px 16px; margin: 5px 5px 5px 0; cursor: pointer; }
+  #result { margin-top: 20px; padding: 12px; border-radius: 8px; background: #f0f0f0; }
+</style>
+</head>
+<body>
+
+<h1>StampDex Mini</h1>
+
+<input type="file" id="fileInput" accept="image/jpeg,image/png">
+<div id="preview"></div>
+<button id="saveBtn" disabled>Save picture</button>
+<button id="analyzeBtn" disabled>Analyze</button>
+<div id="result"></div>
+
+<script>
+// ---- "Database": just a JSON array, edit as needed ----
+const stampDatabase = [
+  { id: 1, name: "Penny Blue", country: "UK", year: 1841, color: [59, 91, 219] },
+  { id: 2, name: "Liberty Head", country: "USA", year: 1922, color: [169, 113, 63] },
+  { id: 3, name: "Marianne", country: "France", year: 1935, color: [198, 40, 40] },
+  { id: 4, name: "Rising Sun", country: "Japan", year: 1948, color: [239, 108, 0] },
+  { id: 5, name: "Maple Leaf", country: "Canada", year: 1967, color: [46, 125, 50] }
+];
+
+let currentDataUrl = null;
+
+const fileInput = document.getElementById('fileInput');
+const preview = document.getElementById('preview');
+const saveBtn = document.getElementById('saveBtn');
+const analyzeBtn = document.getElementById('analyzeBtn');
+const result = document.getElementById('result');
+
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentDataUrl = e.target.result;
+    preview.innerHTML = `<img src="${currentDataUrl}" alt="preview">`;
+    saveBtn.disabled = false;
+    analyzeBtn.disabled = false;
+    result.innerHTML = '';
+  };
+  reader.readAsDataURL(file);
+});
+
+// Save picture to localStorage for "later analysis"
+saveBtn.addEventListener('click', () => {
+  localStorage.setItem('stampdex_last_image', currentDataUrl);
+  alert('Picture saved locally! Reload the page later and click Analyze to compare it.');
+});
+
+// On load, if a saved image exists and no new one picked, offer to use it
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('stampdex_last_image');
+  if (saved && !currentDataUrl) {
+    currentDataUrl = saved;
+    preview.innerHTML = `<img src="${saved}" alt="saved preview"><p><em>Loaded previously saved image.</em></p>`;
+    analyzeBtn.disabled = false;
+  }
+});
+
+// Very simple average-color comparison
+analyzeBtn.addEventListener('click', () => {
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 20; canvas.height = 20;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, 20, 20);
+    const data = ctx.getImageData(0, 0, 20, 20).data;
+
+    let r = 0, g = 0, b = 0, count = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      r += data[i]; g += data[i+1]; b += data[i+2]; count++;
+    }
+    r /= count; g /= count; b /= count;
+
+    let best = null, bestDist = Infinity;
+    for (const stamp of stampDatabase) {
+      const [sr, sg, sb] = stamp.color;
+      const dist = Math.sqrt((r-sr)**2 + (g-sg)**2 + (b-sb)**2);
+      if (dist < bestDist) { bestDist = dist; best = stamp; }
+    }
+
+    const confidence = Math.max(0, 100 - (bestDist / 4.4));
+    if (confidence > 50) {
+      result.innerHTML = `<strong>Match:</strong> ${best.name} (${best.country}, ${best.year})<br>
+                           <strong>Confidence:</strong> ${confidence.toFixed(1)}%`;
+    } else {
+      result.innerHTML = `Could not confidently identify this stamp. Try a clearer photo.`;
+    }
+  };
+  img.src = currentDataUrl;
+});
+</script>
+
+</body>
+</html>
